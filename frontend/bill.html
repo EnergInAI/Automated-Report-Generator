@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Electricity Bill Details</h1>
+
+    <div class="card">
+
+        <h2>Consumer Information</h2>
+
+        <div class="input-group">
+            <label>Consumer Name</label>
+            <input type="text" id="consumer_name">
+        </div>
+
+        <div class="input-group">
+            <label>Division</label>
+            <input type="text" id="division">
+        </div>
+
+        <div class="input-group">
+            <label>Contract Demand (kW)</label>
+            <input type="text" id="contract">
+        </div>
+
+        <h2>Last 6 Months Consumption</h2>
+
+        <table>
+
+            <tr>
+                <th>Month</th>
+                <th>kWh</th>
+                <th>Bill Amount</th>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="month1" placeholder="FEB-2026"></td>
+                <td><input type="number" id="kwh1"></td>
+                <td><input type="number" id="bill1"></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="month2" placeholder="JAN-2026"></td>
+                <td><input type="number" id="kwh2"></td>
+                <td><input type="number" id="bill2"></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="month3" placeholder="DEC-2025"></td>
+                <td><input type="number" id="kwh3"></td>
+                <td><input type="number" id="bill3"></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="month4" placeholder="NOV-2025"></td>
+                <td><input type="number" id="kwh4"></td>
+                <td><input type="number" id="bill4"></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="month5" placeholder="OCT-2025"></td>
+                <td><input type="number" id="kwh5"></td>
+                <td><input type="number" id="bill5"></td>
+            </tr>
+
+            <tr>
+                <td><input type="text" id="month6" placeholder="SEP-2025"></td>
+                <td><input type="number" id="kwh6"></td>
+                <td><input type="number" id="bill6"></td>
+            </tr>
+
+        </table>
+
+        <br>
+
+        <button type="button "onclick="generateReport()">
+            Generate Report
+        </button>
+
+        <div id="status"></div>
+        
+
+    </div>
+
+</div>
+
+<script src="bill.js"></script>
+
+</body>
+</html>

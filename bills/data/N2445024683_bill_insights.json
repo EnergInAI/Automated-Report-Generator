@@ -1,0 +1,41 @@
+{
+  "IVRS_No": "N2445024683",
+  "Consumer_Name": "Ms.SMT.NEETISAXENA",
+  "Division": "Ayodhya Bypass",
+  "Energy_Consumption": {
+    "Contract_Demand (kWh)": "6.8",
+    "Meter_Type": "THREE",
+    "Monthly_Consumption_and_Bill": [
+      {
+        "month": "FEB-2026",
+        "kwh": 0,
+        "bill": 50
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 223,
+        "bill": 2453
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 201,
+        "bill": 2211
+      },
+      {
+        "month": "NOV-2025",
+        "kwh": 189,
+        "bill": 2079
+      },
+      {
+        "month": "OCT-2025",
+        "kwh": 168,
+        "bill": 1848
+      },
+      {
+        "month": "MAR-2025",
+        "kwh": 184,
+        "bill":2024 
+      }
+    ]
+  }
+}

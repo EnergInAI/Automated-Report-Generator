@@ -1,0 +1,41 @@
+{
+  "IVRS_No": "N2345037754",
+  "Consumer_Name": "SANTOSH SURYANSHI / N.K.SURYANS",
+  "Division": "O&M KOLAR",
+  "Energy_Consumption": {
+    "Contract_Demand (kWh)": "3.0",
+    "Meter_Type": "THREE",
+    "Monthly_Consumption_and_Bill": [
+      {
+        "month": "SEP-2025",
+        "kwh": 335.21,
+        "bill":3685 
+      },
+      {
+        "month": "AUG-2025",
+        "kwh": 313.00,
+        "bill": 3443
+      },
+      {
+        "month": "JUL-2025",
+        "kwh": 481.00,
+        "bill": 5291
+      },
+      {
+        "month": "JUN-2025",
+        "kwh": 356.00,
+        "bill": 3916
+      },
+      {
+        "month": "MAY-2025",
+        "kwh": 391.05,
+        "bill": 4301
+      },
+      {
+        "month": "APR-2025",
+        "kwh": 209,
+        "bill": 2299
+      }
+    ]
+  }
+}

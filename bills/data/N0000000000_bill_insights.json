@@ -1,0 +1,41 @@
+{
+    "IVRS_No": "N0000000000",
+    "Consumer_Name": "fghjk",
+    "Division": "ghjk",
+    "Energy_Consumption": {
+        "Contract_Demand (kW)": "5",
+        "Meter_Type": "Single-phase",
+        "Monthly_Consumption_and_Bill": [
+            {
+                "month": "",
+                "kwh": 17,
+                "bill": 50
+            },
+            {
+                "month": "",
+                "kwh": 50,
+                "bill": 40
+            },
+            {
+                "month": "",
+                "kwh": 60,
+                "bill": 50
+            },
+            {
+                "month": "",
+                "kwh": 50,
+                "bill": 60
+            },
+            {
+                "month": "",
+                "kwh": 90,
+                "bill": 50
+            },
+            {
+                "month": "",
+                "kwh": 60,
+                "bill": 50
+            }
+        ]
+    }
+}

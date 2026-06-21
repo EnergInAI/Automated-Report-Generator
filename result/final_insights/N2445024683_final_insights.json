@@ -1,0 +1,86 @@
+{
+  "id": "9755241983",
+  "timestamp": "2026-04-08T19:06:33.244589",
+  "Basic Information": {
+    "IVRS Number": "N2445024683",
+    "Owner Name": "Ms.SMT.NEETISAXENA",
+    "Owner Contact": "9755241983",
+    "Owner Address": " Division:H.NO.124,SAGARAVENUE,Ayodhya Bypass",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "6.8",
+    "Meter Type": "THREE",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "FEB-2026",
+        "kwh": 0,
+        "bill": 50
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 223,
+        "bill": 2453
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 201,
+        "bill": 2211
+      },
+      {
+        "month": "NOV-2025",
+        "kwh": 189,
+        "bill": 2079
+      },
+      {
+        "month": "OCT-2025",
+        "kwh": 168,
+        "bill": 1848
+      },
+      {
+        "month": "MAR-2025",
+        "kwh": 184,
+        "bill": 2024
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "92.9",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "92.9",
+    "Calculated Installation Area (m²)": "92.9",
+    "Electric Panel Capacity (kW)": "6.8"
+  },
+  "Solar Insights": {
+    "3kW": {
+      "system_size_kw": 3,
+      "fits": true,
+      "area_needed_m2": 17.6,
+      "usable_area_m2": 92.9,
+      "annual_generation_kwh": 4641.0,
+      "annual_load_kwh": 1930.0,
+      "offset_kwh": 1930.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 21326.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 21326.0,
+      "finance": {
+        "gross_capex_inr": 180000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 0,
+        "net_capex_inr": 102000,
+        "interest_rate_percent": 7.0,
+        "approx_monthly_bill_inr": 1778.0,
+        "monthly_payment_inr": 1778.0,
+        "yearly_payment_inr": 21336.0,
+        "estimated_loan_duration_months": 70.0,
+        "estimated_loan_duration_years": 5.8,
+        "net_benefit_first_year_inr": -10.0,
+        "ten_year_emi_inr": 1184,
+        "explanation": "Interest rate = 7.0%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "3 kW system offsets 100% of your load, saving ~₹21326.0/yr. EMI ≈ ₹1778.0/month at 7.0% for about 5.8 years."
+  }
+}

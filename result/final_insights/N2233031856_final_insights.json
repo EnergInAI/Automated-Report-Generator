@@ -1,0 +1,58 @@
+{
+  "id": "0",
+  "timestamp": "2026-06-22T01:48:33.929828",
+  "Basic Information": {
+    "IVRS Number": "N2233031856",
+    "Owner Name": "",
+    "Owner Contact": "0",
+    "Owner Address": "",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "N/A",
+    "Meter Type": "Single-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "",
+        "kwh": 0,
+        "bill": 0
+      },
+      {
+        "month": "",
+        "kwh": 0,
+        "bill": 0
+      },
+      {
+        "month": "",
+        "kwh": 0,
+        "bill": 0
+      },
+      {
+        "month": "",
+        "kwh": 0,
+        "bill": 0
+      },
+      {
+        "month": "",
+        "kwh": 0,
+        "bill": 0
+      },
+      {
+        "month": "",
+        "kwh": 0,
+        "bill": 0
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "0",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "0",
+    "Calculated Installation Area (m²)": "0",
+    "Electric Panel Capacity (kW)": "N/A"
+  },
+  "Solar Insights": {
+    "summary": "Insufficient data to compute recommendation."
+  }
+}

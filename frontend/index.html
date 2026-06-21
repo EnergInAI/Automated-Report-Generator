@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Audit Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>EnerginAI Solar Audit</h1>
+
+    <div class="card">
+
+        <h2>Owner Details</h2>
+
+        <div class="input-group">
+            <label>Name of House Owner</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="number" id="phone" required>
+        </div>
+
+        <div class="input-group">
+            <label>Full Address (including PIN Code)</label>
+            <textarea id="address"></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>Meter Type</label>
+            <select id="meter">
+                <option value="Single-phase">Single-phase</option>
+                <option value="Three-phase">Three-phase</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>IVRS Number</label>
+            <input type="text" id="ivrs" required>
+        </div>
+
+        <div class="input-group">
+            <label>Shadow Free Roof Area (sq. ft.)</label>
+            <input type="number" id="roof" required>
+        </div>
+
+        <button onclick="saveForm()">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

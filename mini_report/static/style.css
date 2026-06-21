@@ -1,0 +1,319 @@
+/* ==============================================
+   ⚡ Premium Energy Audit Report UI (Modern v3)
+   Compatible with HTML-to-PDF Rendering
+   ============================================== */
+
+body {
+  font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #1e1e2f;
+  margin: 2cm;
+  background: #f5f7fa;
+  -webkit-print-color-adjust: exact;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #ffffff, #eef2f7);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+  width: 90px;
+  height: auto;
+  margin-right: 1.2rem;
+  border-radius: 6px;
+}
+
+.header-text h1 {
+  color: #0d274d;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tagline {
+  font-style: italic;
+  color: #f28c28;
+  margin-top: 0.3rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* ---------------- SECTION HEADINGS ---------------- */
+
+h2 {
+  color: #0d274d;
+  border-bottom: 3px solid #f28c28;
+  padding-bottom: 0.4rem;
+  margin-top: 2rem;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.3px;
+}
+
+/* ---------------- SCORE BAR ---------------- */
+
+.score-bar-container {
+  position: relative;
+  height: 45px;
+  background: linear-gradient(to right, #ff6b6b, #f9ca24, #6ab04c, #0d274d);
+  border-radius: 20px;
+  margin: 2.5rem 0;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Marker styling (below bar for PDF clarity) */
+.score-marker {
+  position: absolute;
+  top: 55px;
+  left: calc(var(--pos) * 1%);
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 2;
+}
+
+.score-label {
+  position: relative;
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: #fff;
+  border: 2px solid #333;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.score-label::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.score-label::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 7px 7px 0 7px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+/* Label color states */
+.current-label {
+  color: #e63946;
+  border-color: #e63946;
+}
+.current-label::before {
+  border-color: #e63946 transparent transparent transparent;
+}
+
+.projected-label {
+  color: #1b4965;
+  border-color: #1b4965;
+}
+.projected-label::before {
+  border-color: #1b4965 transparent transparent transparent;
+}
+
+/* ---------------- SCORE REMARK ---------------- */
+
+.score-remark {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.2rem;
+  background: rgba(240, 248, 255, 0.9);
+  border-radius: 12px;
+  border-left: 5px solid #f28c28;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.score-remark p:first-child {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------------- METRIC CARDS ---------------- */
+
+.section-block {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(13, 39, 77, 0.1);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 1.2rem;
+  box-shadow: 0 2px 8px rgba(13, 39, 77, 0.06);
+  text-align: center;
+  border-left: 5px solid #f28c28;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(13, 39, 77, 0.12);
+}
+
+.card h3 {
+  margin: 0 0 6px 0;
+  font-size: 0.95rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card div {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #0d274d;
+}
+
+.card small {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* ---------------- HIGHLIGHT SECTIONS ---------------- */
+
+.highlight {
+  background: linear-gradient(135deg, #20c997, #28a745);
+  color: #fff;
+  border-radius: 12px;
+  padding: 1.8rem;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(32, 201, 151, 0.35);
+  margin: 2rem 0;
+}
+
+.highlight strong {
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------------- CHART IMAGE ---------------- */
+
+.chart {
+  width: 100%;
+  max-width: 720px;
+  margin-top: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------------- FOOTER ---------------- */
+
+footer {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: #0d274d;
+  border-top: 2px solid #f28c28;
+  padding-top: 1rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+}
+
+footer b {
+  color: #0d274d;
+}
+
+footer span {
+  color: #f28c28;
+}
+
+footer i {
+  color: #555;
+}
+
+/* ---------------- RESPONSIVE TWEAKS ---------------- */
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+  body {
+    margin: 1rem;
+  }
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .header-text h1 {
+    font-size: 1.3rem;
+  }
+  .score-marker {
+    top: 60px;
+  }
+}
+
+/* ---------------- PRINT TWEAKS ---------------- */
+
+@media print {
+  body {
+    margin: 1cm;
+    background: #fff;
+  }
+  .card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .score-bar-container {
+    box-shadow: none;
+  }
+  footer {
+    box-shadow: none;
+    border-top: 1px solid #ccc;
+  }
+}
+
+/* ---------------- GLOBAL REPORT SCALING ---------------- */
+
+.report-content {
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.report-content h2 {
+  font-size: 1.4rem;
+}
+
+.gradient-wrapper {
+  position: relative;
+  height: 90px;
+}
+
+ul {
+  line-height: 1.5;
+  list-style: inside disc;
+}

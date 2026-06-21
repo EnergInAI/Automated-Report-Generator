@@ -1,0 +1,86 @@
+{
+  "id": "9340701135",
+  "timestamp": "2026-06-01T22:57:16.450392",
+  "Basic Information": {
+    "IVRS Number": "N2244013079",
+    "Owner Name": "SANGEETA WO NAVIN S.PAWAR",
+    "Owner Contact": "9340701135",
+    "Owner Address": " H.NO.19-B,JAWAHARNAGAR,AWDHA PURI",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "3",
+    "Meter Type": "sinle-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "MAY-2025",
+        "kwh": 360,
+        "bill": 3960
+      },
+      {
+        "month": "APR-2026",
+        "kwh": 390,
+        "bill": 4290
+      },
+      {
+        "month": "MAR-2026",
+        "kwh": 400,
+        "bill": 4400
+      },
+      {
+        "month": "FEB-2026",
+        "kwh": 110,
+        "bill": 1210
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 390,
+        "bill": 4290
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 42,
+        "bill": 462
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "92.9",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "92.9",
+    "Calculated Installation Area (m²)": "92.9",
+    "Electric Panel Capacity (kW)": "3"
+  },
+  "Solar Insights": {
+    "5kW": {
+      "system_size_kw": 5,
+      "fits": true,
+      "area_needed_m2": 29.4,
+      "usable_area_m2": 92.9,
+      "annual_generation_kwh": 7735.0,
+      "annual_load_kwh": 3384.0,
+      "offset_kwh": 3384.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 37224.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 37224.0,
+      "finance": {
+        "gross_capex_inr": 300000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 30000,
+        "net_capex_inr": 222000,
+        "interest_rate_percent": 8.15,
+        "approx_monthly_bill_inr": 3102.0,
+        "monthly_payment_inr": 3102.0,
+        "yearly_payment_inr": 37224.0,
+        "estimated_loan_duration_months": 98.3,
+        "estimated_loan_duration_years": 8.2,
+        "net_benefit_first_year_inr": 0.0,
+        "ten_year_emi_inr": 2711,
+        "explanation": "Interest rate = 8.15%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "5 kW system offsets 100% of your load, saving ~₹37224.0/yr. EMI ≈ ₹3102.0/month at 8.15% for about 8.2 years."
+  }
+}

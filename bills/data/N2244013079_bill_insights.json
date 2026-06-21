@@ -1,0 +1,41 @@
+{
+  "IVRS_No": "N2244013079",
+  "Consumer_Name": "SANGEETA WO NAVIN S.PAWAR",
+  "Division": "Bhopal City North",
+  "Energy_Consumption": {
+    "Contract_Demand (kWh)": "3",
+    "Meter_Type": "single",
+    "Monthly_Consumption_and_Bill": [
+      {
+        "month": "MAY-2025",
+        "kwh": 360,
+        "bill": 3960
+      },
+      {
+        "month": "APR-2026",
+        "kwh": 390,
+        "bill": 4290
+      },
+      {
+        "month": "MAR-2026",
+        "kwh": 400,
+        "bill": 4400
+      },
+      {
+        "month": "FEB-2026",
+        "kwh": 110,
+        "bill": 1210
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 390,
+        "bill": 4290
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 42,
+        "bill":462
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "IVRS_No": "N2116002459",
+  "Consumer_Name": "Ms. shikha shukla",
+  "Division": "O&M KOLAR",
+  "Energy_Consumption": {
+    "Contract_Demand (kW)": "3.0",
+    "Meter_Type": "THREE",
+    "Monthly_Consumption_and_Bill": [
+      {
+        "month": "FEB-2026",
+        "kwh": 199,
+        "bill": 2189
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 187,
+        "bill": 2057
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 164,
+        "bill": 1804
+      },
+      {
+        "month": "NOV-2025",
+        "kwh": 190,
+        "bill": 2090
+      },
+      {
+        "month": "OCT-2025",
+        "kwh": 194,
+        "bill": 2134
+      },
+      {
+        "month": "MAR-2025",
+        "kwh": 189,
+        "bill": 2079
+      }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "+91 78696 59492",
+  "timestamp": "2026-01-18T15:36:37.400318",
+  "Basic Information": {
+    "IVRS Number": "N2335014754",
+    "Owner Name": "Mr. PREM NARAYAN KASHIRAM",
+    "Owner Contact": "+91 78696 59492",
+    "Owner Address": "HINOTIAALAM ,MISROD ,HINOTIAALAM ,MISROD",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "N/A",
+    "Meter Type": "Single-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "JAN-2026",
+        "kwh": 564.27,
+        "bill": 4801.0
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 152,
+        "bill": 1672
+      },
+      {
+        "month": "NOV-2025",
+        "kwh": 111,
+        "bill": 1221
+      },
+      {
+        "month": "OCT-2025",
+        "kwh": 156,
+        "bill": 1672
+      },
+      {
+        "month": "SEP-2025",
+        "kwh": 150,
+        "bill": 1650
+      },
+      {
+        "month": "AUG-2025",
+        "kwh": 180,
+        "bill": 1980
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "55.74",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "55.74",
+    "Calculated Installation Area (m²)": "55.74",
+    "Electric Panel Capacity (kW)": "N/A"
+  },
+  "Solar Insights": {
+    "5kW": {
+      "system_size_kw": 5,
+      "fits": true,
+      "area_needed_m2": 29.4,
+      "usable_area_m2": 55.7,
+      "annual_generation_kwh": 7735.0,
+      "annual_load_kwh": 2626.5,
+      "offset_kwh": 2626.5,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 26002.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 26002.0,
+      "finance": {
+        "gross_capex_inr": 300000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 30000,
+        "net_capex_inr": 222000,
+        "interest_rate_percent": 8.15,
+        "approx_monthly_bill_inr": 2166.0,
+        "monthly_payment_inr": 2166.0,
+        "yearly_payment_inr": 25992.0,
+        "estimated_loan_duration_months": 176.0,
+        "estimated_loan_duration_years": 14.7,
+        "net_benefit_first_year_inr": 10.0,
+        "ten_year_emi_inr": 2711,
+        "explanation": "Interest rate = 8.15%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "5 kW system offsets 100% of your load, saving ~₹26002.0/yr. EMI ≈ ₹2166.0/month at 8.15% for about 14.7 years."
+  }
+}

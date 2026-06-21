@@ -1,0 +1,86 @@
+{
+  "id": "+919179099460",
+  "timestamp": "2025-11-25T20:19:23.713396",
+  "Basic Information": {
+    "IVRS Number": "N2345025643",
+    "Owner Name": "Anurag Goswami",
+    "Owner Contact": "+919179099460",
+    "Owner Address": "GIRIDHAR GARDEN, KOLAR ROAD",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "3.0",
+    "Meter Type": "Three-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "OCT-2025",
+        "kwh": 310.0,
+        "bill": 2438.8
+      },
+      {
+        "month": "SEP-2025",
+        "kwh": 320.0,
+        "bill": 2513.6
+      },
+      {
+        "month": "AUG-2025",
+        "kwh": 276.0,
+        "bill": 2184.48
+      },
+      {
+        "month": "JUL-2025",
+        "kwh": 294.0,
+        "bill": 2319.12
+      },
+      {
+        "month": "JUN-2025",
+        "kwh": 406.0,
+        "bill": 3156.88
+      },
+      {
+        "month": "NOV-2024",
+        "kwh": 137.0,
+        "bill": 1144.76
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "4.65",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "4.65",
+    "Calculated Installation Area (m²)": "4.65",
+    "Electric Panel Capacity (kW)": "3.0"
+  },
+  "Solar Insights": {
+    "3.0kW": {
+      "system_size_kw": 3.0,
+      "fits": false,
+      "area_needed_m2": 17.6,
+      "usable_area_m2": 4.7,
+      "annual_generation_kwh": 4641.0,
+      "annual_load_kwh": 3486.0,
+      "offset_kwh": 3486.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 27505.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 27505.0,
+      "finance": {
+        "gross_capex_inr": 180000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 0,
+        "net_capex_inr": 102000,
+        "interest_rate_percent": 7.0,
+        "approx_monthly_bill_inr": 2293.0,
+        "monthly_payment_inr": 2293.0,
+        "yearly_payment_inr": 27516.0,
+        "estimated_loan_duration_months": 51.6,
+        "estimated_loan_duration_years": 4.3,
+        "net_benefit_first_year_inr": -11.0,
+        "ten_year_emi_inr": 1184,
+        "explanation": "Interest rate = 7.0%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "3.0 kW system offsets 100% of your load, saving ~₹27505.0/yr. EMI ≈ ₹2293.0/month at 7.0% for about 4.3 years."
+  }
+}

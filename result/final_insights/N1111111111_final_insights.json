@@ -1,0 +1,86 @@
+{
+  "id": "6264846880",
+  "timestamp": "2026-06-22T01:29:41.434837",
+  "Basic Information": {
+    "IVRS Number": "N1111111111",
+    "Owner Name": "nikita",
+    "Owner Contact": "6264846880",
+    "Owner Address": "Narela sankari",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "N/A",
+    "Meter Type": "Three-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "",
+        "kwh": 4,
+        "bill": 55
+      },
+      {
+        "month": "",
+        "kwh": 5,
+        "bill": 5
+      },
+      {
+        "month": "",
+        "kwh": 8,
+        "bill": 96
+      },
+      {
+        "month": "",
+        "kwh": 8,
+        "bill": 74
+      },
+      {
+        "month": "",
+        "kwh": 9,
+        "bill": 85
+      },
+      {
+        "month": "",
+        "kwh": 45,
+        "bill": 12
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "92.9",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "92.9",
+    "Calculated Installation Area (m²)": "92.9",
+    "Electric Panel Capacity (kW)": "N/A"
+  },
+  "Solar Insights": {
+    "5kW": {
+      "system_size_kw": 5,
+      "fits": true,
+      "area_needed_m2": 29.4,
+      "usable_area_m2": 92.9,
+      "annual_generation_kwh": 7735.0,
+      "annual_load_kwh": 158.0,
+      "offset_kwh": 158.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 654.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 654.0,
+      "finance": {
+        "gross_capex_inr": 300000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 30000,
+        "net_capex_inr": 222000,
+        "interest_rate_percent": 8.15,
+        "approx_monthly_bill_inr": 54.0,
+        "monthly_payment_inr": 54.0,
+        "yearly_payment_inr": 648.0,
+        "estimated_loan_duration_months": null,
+        "estimated_loan_duration_years": null,
+        "net_benefit_first_year_inr": 6.0,
+        "ten_year_emi_inr": 2711,
+        "explanation": "Interest rate = 8.15%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "5 kW system offsets 100% of your load, saving ~₹654.0/yr. EMI ≈ ₹54.0/month at 8.15% for about None years."
+  }
+}

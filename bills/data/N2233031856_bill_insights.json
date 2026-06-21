@@ -1,0 +1,41 @@
+{
+    "IVRS_No": "N2233031856",
+    "Consumer_Name": "",
+    "Division": "",
+    "Energy_Consumption": {
+        "Contract_Demand (kW)": "",
+        "Meter_Type": "Single-phase",
+        "Monthly_Consumption_and_Bill": [
+            {
+                "month": "",
+                "kwh": 0,
+                "bill": 0
+            },
+            {
+                "month": "",
+                "kwh": 0,
+                "bill": 0
+            },
+            {
+                "month": "",
+                "kwh": 0,
+                "bill": 0
+            },
+            {
+                "month": "",
+                "kwh": 0,
+                "bill": 0
+            },
+            {
+                "month": "",
+                "kwh": 0,
+                "bill": 0
+            },
+            {
+                "month": "",
+                "kwh": 0,
+                "bill": 0
+            }
+        ]
+    }
+}

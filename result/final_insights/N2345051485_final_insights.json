@@ -1,0 +1,87 @@
+{
+  "id": "8825885952",
+  "timestamp": "2025-11-07T03:06:14.207714",
+  "Basic Information": {
+    "IVRS Number": "N2345051485",
+    "Owner Name": "Chhaya Guhe ",
+    "Owner Contact": "8825885952",
+    "Owner Address": "Nayapura kolar road bhopal",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "4.0",
+    "Meter Type": "Single-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "SEP-2025",
+        "kwh": 134.0,
+        "bill": 1122.32
+      },
+      {
+        "month": "AUG-2025",
+        "kwh": 108.0,
+        "bill": 927.84
+      },
+      {
+        "month": "JUL-2025",
+        "kwh": 119.0,
+        "bill": 1010.12
+      },
+      {
+        "month": "JUN-2025",
+        "kwh": 131.0,
+        "bill": 1099.88
+      },
+      {
+        "month": "MAY-2025",
+        "kwh": 150.0,
+        "bill": 1242.0
+      },
+      {
+        "month": "OCT-2024",
+        "kwh": 0.0,
+        "bill": 120.0
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "41.81",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "41.81",
+    "Calculated Installation Area (m²)": "41.81",
+    "Electric Panel Capacity (kW)": "4.0"
+  },
+  "Solar Insights": {
+    "3kW": {
+      "system_size_kw": 3,
+      "fits": true,
+      "area_needed_m2": 17.6,
+      "usable_area_m2": 41.8,
+      "annual_generation_kwh": 4641.0,
+      "annual_load_kwh": 1284.0,
+      "offset_kwh": 1284.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 11042.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 11042.0,
+      "finance": {
+        "gross_capex_inr": 180000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 0,
+        "net_capex_inr": 102000,
+        "interest_rate_percent": 7.0,
+        "approx_monthly_bill_inr": 920.0,
+        "monthly_payment_inr": 920.0,
+        "yearly_payment_inr": 11040.0,
+        "estimated_loan_duration_months": 178.9,
+        "estimated_loan_duration_years": 14.9,
+        "net_benefit_first_year_inr": 2.0,
+        "simple_payback_years": 9.2,
+        "ten_year_emi_inr": 1184,
+        "explanation": "Interest rate = 7.0%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "3 kW system offsets 100% of your load, saving ~₹11042.0/yr. EMI ≈ ₹920.0/month at 7.0% for about 14.9 years."
+  }
+}

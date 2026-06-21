@@ -1,0 +1,41 @@
+{
+    "IVRS_No": "N1111111111",
+    "Consumer_Name": "cvbn",
+    "Division": "vbnm",
+    "Energy_Consumption": {
+        "Contract_Demand (kW)": "8",
+        "Meter_Type": "Three-phase",
+        "Monthly_Consumption_and_Bill": [
+            {
+                "month": "",
+                "kwh": 4,
+                "bill": 55
+            },
+            {
+                "month": "",
+                "kwh": 5,
+                "bill": 5
+            },
+            {
+                "month": "",
+                "kwh": 8,
+                "bill": 96
+            },
+            {
+                "month": "",
+                "kwh": 8,
+                "bill": 74
+            },
+            {
+                "month": "",
+                "kwh": 9,
+                "bill": 85
+            },
+            {
+                "month": "",
+                "kwh": 45,
+                "bill": 12
+            }
+        ]
+    }
+}

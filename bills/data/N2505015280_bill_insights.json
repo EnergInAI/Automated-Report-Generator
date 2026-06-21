@@ -1,0 +1,41 @@
+{
+  "IVRS_No": "N2505015280",
+  "Consumer_Name": "Mr./Ms. NITIN DEEP SINGH S/O RAVINDRA KUMAR SINGH ARORA",
+  "Division": "Ayodhya Bypass",
+  "Energy_Consumption": {
+    "Contract_Demand (kWh)": "5",
+    "Meter_Type": "THREE",
+    "Monthly_Consumption_and_Bill": [
+      {
+        "month": "MAR-2025",
+        "kwh": 578,
+        "bill": 6358
+      },
+      {
+        "month": "APR-2026",
+        "kwh": 433,
+        "bill": 4763
+      },
+      {
+        "month": "MAR-2026",
+        "kwh": 422,
+        "bill": 4642
+      },
+      {
+        "month": "FEB-2026",
+        "kwh": 429,
+        "bill": 4179
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 474,
+        "bill": 5214
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 471,
+        "bill":5181
+      }
+    ]
+  }
+}

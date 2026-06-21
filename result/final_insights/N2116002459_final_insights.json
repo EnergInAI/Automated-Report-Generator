@@ -1,0 +1,86 @@
+{
+  "id": "+91 ",
+  "timestamp": "2026-03-06T00:24:02.305136",
+  "Basic Information": {
+    "IVRS Number": "N2116002459",
+    "Owner Name": "Ms. shikha shukla",
+    "Owner Contact": "+91 ",
+    "Owner Address": "House No 27, krishna greens, HINOTIYA ALAM, KOLAR ROAD",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "N/A",
+    "Meter Type": "Three-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "FEB-2026",
+        "kwh": 199,
+        "bill": 2189
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 187,
+        "bill": 2057
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 164,
+        "bill": 1804
+      },
+      {
+        "month": "NOV-2025",
+        "kwh": 190,
+        "bill": 2090
+      },
+      {
+        "month": "OCT-2025",
+        "kwh": 194,
+        "bill": 2134
+      },
+      {
+        "month": "MAR-2025",
+        "kwh": 189,
+        "bill": 2079
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "55.74",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "55.74",
+    "Calculated Installation Area (m²)": "55.74",
+    "Electric Panel Capacity (kW)": "N/A"
+  },
+  "Solar Insights": {
+    "3kW": {
+      "system_size_kw": 3,
+      "fits": true,
+      "area_needed_m2": 17.6,
+      "usable_area_m2": 55.7,
+      "annual_generation_kwh": 4641.0,
+      "annual_load_kwh": 2246.0,
+      "offset_kwh": 2246.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 24706.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 24706.0,
+      "finance": {
+        "gross_capex_inr": 180000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 0,
+        "net_capex_inr": 102000,
+        "interest_rate_percent": 7.0,
+        "approx_monthly_bill_inr": 2059.0,
+        "monthly_payment_inr": 2059.0,
+        "yearly_payment_inr": 24708.0,
+        "estimated_loan_duration_months": 58.6,
+        "estimated_loan_duration_years": 4.9,
+        "net_benefit_first_year_inr": -2.0,
+        "ten_year_emi_inr": 1184,
+        "explanation": "Interest rate = 7.0%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "3 kW system offsets 100% of your load, saving ~₹24706.0/yr. EMI ≈ ₹2059.0/month at 7.0% for about 4.9 years."
+  }
+}

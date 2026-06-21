@@ -1,0 +1,86 @@
+{
+  "id": "+917869245031",
+  "timestamp": "2026-05-24T12:35:49.797994",
+  "Basic Information": {
+    "IVRS Number": "N2505015280",
+    "Owner Name": "Mr./Ms. NITIN DEEP SINGH S/O RAVINDRA KUMAR SINGH ARORA",
+    "Owner Contact": "+917869245031",
+    "Owner Address": "53, ADITYA AVE, ENUE AIR PORT RD.",
+    "Climate Zone": null
+  },
+  "Energy Consumption": {
+    "Contract Demand (kWh)": "5",
+    "Meter Type": "Three-phase",
+    "Monthly Consumption & Bill": [
+      {
+        "month": "MAR-2025",
+        "kwh": 578,
+        "bill": 6358
+      },
+      {
+        "month": "APR-2026",
+        "kwh": 433,
+        "bill": 4763
+      },
+      {
+        "month": "MAR-2026",
+        "kwh": 422,
+        "bill": 4642
+      },
+      {
+        "month": "FEB-2026",
+        "kwh": 429,
+        "bill": 4179
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 474,
+        "bill": 5214
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 471,
+        "bill": 5181
+      }
+    ]
+  },
+  "Solar Feasibility": {
+    "Existing Solar System": "No",
+    "Available Roof Area (m²)": "92.9",
+    "Shadowed Area (m²)": "0",
+    "No Shadow Area (m²)": "92.9",
+    "Calculated Installation Area (m²)": "92.9",
+    "Electric Panel Capacity (kW)": "5"
+  },
+  "Solar Insights": {
+    "5kW": {
+      "system_size_kw": 5,
+      "fits": true,
+      "area_needed_m2": 29.4,
+      "usable_area_m2": 92.9,
+      "annual_generation_kwh": 7735.0,
+      "annual_load_kwh": 5614.0,
+      "offset_kwh": 5614.0,
+      "offset_percent": 100,
+      "without_solar_cost_inr": 60687.0,
+      "with_solar_cost_inr": null,
+      "annual_saving_inr": 60687.0,
+      "finance": {
+        "gross_capex_inr": 300000,
+        "subsidy_inr": 78000,
+        "upfront_inr": 30000,
+        "net_capex_inr": 222000,
+        "interest_rate_percent": 8.15,
+        "approx_monthly_bill_inr": 5056.0,
+        "monthly_payment_inr": 5056.0,
+        "yearly_payment_inr": 60672.0,
+        "estimated_loan_duration_months": 52.3,
+        "estimated_loan_duration_years": 4.4,
+        "net_benefit_first_year_inr": 15.0,
+        "ten_year_emi_inr": 2711,
+        "explanation": "Interest rate = 8.15%. Loan duration auto-calculated so EMI ≈ user's average bill."
+      }
+    },
+    "summary": "5 kW system offsets 100% of your load, saving ~₹60687.0/yr. EMI ≈ ₹5056.0/month at 8.15% for about 4.4 years."
+  }
+}

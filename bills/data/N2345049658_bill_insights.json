@@ -1,0 +1,41 @@
+{
+  "IVRS_No": "N2345049658",
+  "Consumer_Name": "Ms.NEHA SONI W/O SANDEEP SONI",
+  "Division": "O&M KOLAR",
+  "Energy_Consumption": {
+    "Contract_Demand (kW)": "2.0",
+    "Meter_Type": "SINGLE",
+    "Monthly_Consumption_and_Bill": [
+      {
+        "month": "MAR-2026",
+        "kwh": 184,
+        "bill": 2024
+      },
+      {
+        "month": "FEB-2026",
+        "kwh": 207,
+        "bill": 2277
+      },
+      {
+        "month": "JAN-2026",
+        "kwh": 161,
+        "bill": 1771
+      },
+      {
+        "month": "DEC-2025",
+        "kwh": 231,
+        "bill": 2541
+      },
+      {
+        "month": "NOV-2025",
+        "kwh": 220,
+        "bill": 2420
+      },
+      {
+        "month": "APR-2025",
+        "kwh": 227,
+        "bill": 2497
+      }
+    ]
+  }
+}

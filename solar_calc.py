@@ -1,23 +1,13 @@
 # ================================
-# solar_calc.py (Final Version with Correct EMI Duration Logic)
+# solar_calc.py
 # ================================
 import math
 
 # -------------------------------
-# Configuration & Constants (India 2025)
+# Configuration & Constants (India)
 # -------------------------------
 
-SPECIFIC_YIELD = {
-    "Hot": 1.05,
-    "Hot and Dry": 1.05,
-    "Composite": 1.00,
-    "Warm": 0.97,
-    "Moderate": 0.94,
-    "Cold": 0.90,
-    None: 1.00
-}
-
-BASE_YIELD_PER_KW = 1547
+BASE_YIELD_PER_KW = 1547  # kWh generated per kW per year
 KW_PER_M2 = 0.17
 COST_PER_KW_INR = 60000
 
@@ -33,10 +23,8 @@ def estimate_capex_subsidy(size_kw: float):
     return capex, subsidy, upfront
 
 
-def annual_generation_kwh(size_kw, climate_zone):
-    factor = SPECIFIC_YIELD.get(climate_zone, SPECIFIC_YIELD[None])
-    gen_per_kw = BASE_YIELD_PER_KW * factor
-    return round(size_kw * gen_per_kw, 1)
+def annual_generation_kwh(size_kw):
+    return round(size_kw * BASE_YIELD_PER_KW, 1)
 
 
 def annual_load_kwh(monthly_data):
@@ -101,7 +89,6 @@ def recommend_solar_system(final_data):
     energy = final_data.get("Energy Consumption", {})
     solar_info = final_data.get("Solar Feasibility", {})
     monthly = energy.get("Monthly Consumption & Bill", [])
-    climate = final_data.get("Basic Information", {}).get("Climate Zone")
     usable_area = float(solar_info.get("Calculated Installation Area (m²)", 0))
     meter_type = (energy.get("Meter Type") or "").upper()
 
@@ -113,7 +100,7 @@ def recommend_solar_system(final_data):
     base_cost = round(annual_load * rate, 0)
     max_kw = 6 if "SINGLE" in meter_type else 50
 
-    ideal_kw = annual_load / (BASE_YIELD_PER_KW * SPECIFIC_YIELD.get(climate, 1.0))
+    ideal_kw = annual_load / BASE_YIELD_PER_KW
     ideal_kw = max(ideal_kw, 5.0)
     ideal_kw = min(ideal_kw, max_kw)
 
@@ -134,13 +121,13 @@ def recommend_solar_system(final_data):
     if not fits:
         final_kw = max(round(usable_area * KW_PER_M2, 1), 3.0)
 
-    gen = annual_generation_kwh(final_kw, climate)
+    gen = annual_generation_kwh(final_kw)
     offset_kwh = gen
 
     if offset_kwh < 0.95 * annual_load:
         while offset_kwh < 0.95 * annual_load and final_kw < max_kw:
             final_kw += 0.1
-            gen = annual_generation_kwh(final_kw, climate)
+            gen = annual_generation_kwh(final_kw)
             offset_kwh = gen
 
     offset_pct = round(min(100, max(95, offset_kwh / annual_load * 100)), 1)

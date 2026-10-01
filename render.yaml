@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: energinai-report
+    runtime: docker
+    plan: free
+    healthCheckPath: /login
+    envVars:
+      - key: USERS            # e.g.  alice:Pass123,bob:Pass456
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true

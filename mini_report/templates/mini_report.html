@@ -183,6 +183,16 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
+  .why-img {
+    display: block;
+    margin: 1rem auto 0 auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 780px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
   footer {
     margin-top: 3rem;
     font-size: 0.85rem;
@@ -321,7 +331,7 @@
     <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
       <div style="font-size:1.55rem;margin-bottom:6px;">🏭</div>
       <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;">YEARLY CO₂ EMISSIONS</h3>
-      <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ yearly_co2_tons|indian_number }} tons</div>
+      <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ yearly_co2_tons|co2_text }}</div>
       <div style="font-size:0.78rem;color:#666;margin-top:4px;">Carbon footprint</div>
     </div>
   </div>
@@ -347,7 +357,7 @@
     <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
       <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">🌱</div>
       <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">CO₂ PREVENTED</h3>
-      <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ co2_prevented_tons|indian_number }} tons</div>
+      <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ co2_prevented_tons|co2_text }}</div>
       <div style="font-size:0.78rem;color:#666;font-style:italic;margin-top:4px;">Per year</div>
     </div>
 
@@ -361,7 +371,7 @@
     <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
       <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">🌍</div>
       <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">LIFETIME CO₂ SAVED</h3>
-      <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ lifetime_co2_saved|indian_number }} tons</div>
+      <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ lifetime_co2_saved|co2_text }}</div>
       <div style="font-size:0.78rem;color:#666;font-style:italic;margin-top:4px;">Over {{ system_lifetime_years }} years</div>
     </div>
   </div>
@@ -386,93 +396,11 @@
     {% endif %}
 
 
-<!-- Environmental Impact Section -->
-<h2>🌍 Environmental Impact Potential</h2>
-<div style="background: #f8f9fa; border-radius: 12px; padding: 1.5rem; margin-top: 1.2rem; box-shadow: 0 2px 8px rgba(13,39,77,0.08);">
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-    
-    <!-- Trees Impact -->
-    {% if trees %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🌳 Equivalent to planting <span style="color: #f28c28;">{{ trees }}</span> mature trees that grow for 10 years
-      </p>
-    </div>
+<!-- Why Choose Us -->
+    {% if why_choose_base64 %}
+    <h2>⭐ Why Choose EnergInAI?</h2>
+    <img src="{{ why_choose_base64 }}" alt="EnergInAI vs Typical Solar Company" class="why-img" />
     {% endif %}
-    
-    <!-- Garden Impact -->
-    {% if garden_area %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🌱 Same oxygen production as <span style="color: #f28c28;">{{ garden_area }}</span> sq.ft of green garden space
-      </p>
-    </div>
-    {% endif %}
-    
-    <!-- Car Travel Impact -->
-    {% if km_driving %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🚗 Equal to avoiding <span style="color: #f28c28;">{{ km_driving }}</span> km of car travel annually
-      </p>
-    </div>
-    {% endif %}
-    
-    <!-- Rural Homes Impact -->
-    {% if rural_homes %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🏡 <span style="color: #f28c28;">Potential</span> clean energy to power approximately <span style="color: #f28c28;">{{ rural_homes }}</span> rural households for one year
-      </p>
-    </div>
-    {% endif %}
-    
-  </div>
-  
-</div>
-<h2>✨ EnergInAI Smart Monitor Benefits</h2>
-<div style="background: #f8f9fa; border-radius: 12px; padding: 1.5rem; margin-top: 1.2rem; box-shadow: 0 2px 8px rgba(13,39,77,0.08);">
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-    
-    <!-- Trees Impact -->
-    {% if trees %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🎁 Smart Energy Monitoring Device For FREE<span style="color: #f28c28;"></span> 
-      </p>
-    </div>
-    {% endif %}
-    
-    <!-- Garden Impact -->
-    {% if garden_area %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        📱Live Energy and Cost Monitoring of your Home<span style="color: #f28c28;"></span>
-      </p>
-    </div>
-    {% endif %}
-    
-    <!-- Car Travel Impact -->
-    {% if km_driving %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🤖 AI-Based Insights to help you save<span style="color: #f28c28;"></span> 
-      </p>
-    </div>
-    {% endif %}
-    
-    <!-- Rural Homes Impact -->
-    {% if rural_homes %}
-    <div style="background: #fff; padding: 1rem 1.2rem; border-left: 4px solid #f28c28; border-radius: 10px;">
-      <p style="font-weight: 700; font-size: 1.05rem; color: #0d274d; margin: 0;">
-        🏡Solar and Home's tracking in one place <span style="color: #f28c28;"></span><span style="color: #f28c28;"></span>
-      </p>
-    </div>
-    {% endif %}
-    
-  </div>
-  
-</div>
 <div class="page-break"></div>
   <!-- Solar Feasibility & Insights Section -->
   <div class="section-block" style="background:#f8f9fa;border-radius:10px;padding:14px 16px 12px 16px;box-shadow:0 2px 6px rgba(13,39,77,0.08);margin-top:26px;margin-bottom:12px;">
@@ -512,7 +440,7 @@
         <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">💰</div>
         <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">ANNUAL SAVING </h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">₹{{ Solar_System['annual_saving_inr']|indian_number }}</div>
-        <div style="font-size:0.78rem;color:#666;font-style:italic;margin-top:4px;">After Loan pyment</div>
+        <div style="font-size:0.78rem;color:#666;font-style:italic;margin-top:4px;">After loan payment</div>
         
       </div>
     </div>
@@ -543,7 +471,12 @@
       <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
         <div style="font-size:1.55rem;margin-bottom:6px;">📅</div>
         <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">PAYBACK TIME</h3>
-        <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ Solar_System.finance.estimated_loan_duration_years}} years</div>
+        {% if Solar_System.finance.estimated_loan_duration_years %}
+        <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ Solar_System.finance.estimated_loan_duration_years }} years</div>
+        {% else %}
+        <div style="font-size:0.9rem;font-weight:bold;color:#0d274d;">10-year plan recommended</div>
+        <div style="font-size:0.78rem;color:#666;font-style:italic;margin-top:4px;">Fixed monthly EMI shown below</div>
+        {% endif %}
       </div>
     </div>
     {% endif %}
@@ -579,7 +512,7 @@
   </div>
   <div style="margin: 0.7em 0 0.7em 0; color: #333;">
     📧 <span style="color:#f28c28;">support@energinai.com</span> | 
-    📱 <span style="color:#f28c28;">+91-7909705494</span> | 
+    📱 <span style="color:#f28c28;">+91-8889991290</span> | 
     🌐 <span style="color:#f28c28;">www.energinai.com</span>
   </div>
   <div style="margin-bottom: 0.7em; color: #555; font-size: 0.97em;">

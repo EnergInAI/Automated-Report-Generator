@@ -13,7 +13,6 @@ from solar_calc import compute_solar_insights
 
 CURRENT_DIR = Path(__file__).parent
 LOGO_PATH = CURRENT_DIR / "energinai_logo.png"
-WHY_CHOOSE_PATH = CURRENT_DIR / "why_choose_us.png"
 
 CURRENT_SCORE = 3
 PROJECTED_SCORE = 7
@@ -175,7 +174,6 @@ def build_context(ivrs, name, address, meter_type, roof_sqft, monthly):
         "homeowner_address": address,
         "logo_base64": image_to_base64(LOGO_PATH),
         "chart_base64": png_to_base64(chart_png),
-        "why_choose_base64": image_to_base64(WHY_CHOOSE_PATH),
         "current_score": CURRENT_SCORE,
         "projected_score": PROJECTED_SCORE,
         "current_remark": get_score_remark(CURRENT_SCORE),

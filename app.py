@@ -1,188 +1,147 @@
-from fastapi import FastAPI
-from fastapi.responses import FileResponse, JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
+import hmac
 import os
-import json
-import subprocess
+import re
+import threading
 import time
+from pathlib import Path
+from typing import List, Literal
 
-app = FastAPI()
+from fastapi import Depends, FastAPI, Form, HTTPException, Request
+from fastapi.responses import FileResponse, RedirectResponse, Response
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field, field_validator
+from starlette.middleware.sessions import SessionMiddleware
 
+from mini_report.mini_report import generate_mini_report_pdf
+
+BASE_DIR = Path(__file__).parent
+FRONTEND_DIR = BASE_DIR / "frontend"
+
+
+def load_users() -> dict:
+    """USERS env var: 'alice:pass1,bob:pass2' (fixed logins, no database)."""
+    users = {}
+    for pair in os.getenv("USERS", "").split(","):
+        if ":" in pair:
+            name, pw = pair.split(":", 1)
+            if name.strip() and pw:
+                users[name.strip()] = pw
+    return users
+
+
+USERS = load_users()
+
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    SessionMiddleware,
+    secret_key=os.getenv("SESSION_SECRET", "dev-only-change-me"),
+    https_only=os.getenv("INSECURE_COOKIES") != "1",  # set to 1 only for local http testing
+    same_site="lax",
+    max_age=60 * 60 * 12,
 )
+app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-FORM_DIR = os.path.join(BASE_DIR, "form", "data")
-BILL_DIR = os.path.join(BASE_DIR, "bills", "data")
-REPORT_DIR = os.path.join(BASE_DIR, "reports")
-
-os.makedirs(FORM_DIR, exist_ok=True)
-os.makedirs(BILL_DIR, exist_ok=True)
-os.makedirs(REPORT_DIR, exist_ok=True)
+# One Chromium at a time keeps memory low on the free tier.
+_pdf_lock = threading.Semaphore(1)
 
 
+# ------------------------------
+# Login
+# ------------------------------
+def is_logged_in(request: Request) -> bool:
+    return bool(request.session.get("user"))
+
+
+@app.get("/login")
+def login_page(request: Request):
+    if is_logged_in(request):
+        return RedirectResponse("/", status_code=303)
+    return FileResponse(FRONTEND_DIR / "login.html")
+
+
+@app.post("/login")
+def login(request: Request, username: str = Form(...), password: str = Form(...)):
+    expected = USERS.get(username.strip())
+    ok = expected is not None and hmac.compare_digest(expected.encode(), password.encode())
+    if not ok:
+        time.sleep(1)  # slow down password guessing
+        return RedirectResponse("/login?error=1", status_code=303)
+    request.session["user"] = username.strip()
+    return RedirectResponse("/", status_code=303)
+
+
+@app.get("/logout")
+def logout(request: Request):
+    request.session.clear()
+    return RedirectResponse("/login", status_code=303)
+
+
+# ------------------------------
+# Report form + generation
+# ------------------------------
 @app.get("/")
-def home():
-    return {
-        "message": "API Running Successfully"
-    }
+def home(request: Request):
+    if not is_logged_in(request):
+        return RedirectResponse("/login", status_code=303)
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
-@app.post("/generate-report")
-def generate_report(data: dict):
-
-    try:
-
-        ivrs = data["IVRS Number [Written in Electricity Bill ]"]
-
-        # ====================================
-        # FORM JSON
-        # ====================================
-
-        form_json = {
-            "Timestamp": data["Timestamp"],
-            "Name of House Owner": data["Name of House Owner"],
-            "Phone Number": data["Phone Number"],
-            "Full Address (including PIN Code)": data["Full Address (including PIN Code)"],
-            "Meter Type": data["Meter Type"],
-            "IVRS Number [Written in Electricity Bill ]": ivrs,
-            "Shadow Free Roof Area for Solar Panel  (in sq. ft.)":
-                data["Shadow Free Roof Area for Solar Panel  (in sq. ft.)"]
-        }
-
-        form_path = os.path.join(
-            FORM_DIR,
-            f"{ivrs}_form_insights.json"
-        )
-
-        with open(form_path, "w", encoding="utf-8") as f:
-            json.dump(form_json, f, indent=4)
-
-        print("Form JSON saved")
+class MonthRow(BaseModel):
+    kwh: float = Field(ge=0, le=100000)
+    bill: float = Field(ge=0, le=10000000)
 
 
-        # ====================================
-        # BILL JSON
-        # ====================================
+class ReportRequest(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    address: str = Field(min_length=1, max_length=300)
+    ivrs: str
+    meter_type: Literal["Single-phase", "Three-phase"]
+    roof_area_sqft: float = Field(gt=0, le=1000000)
+    months: List[MonthRow] = Field(min_length=3, max_length=12)
 
-        bill_path = os.path.join(
-            BILL_DIR,
-            f"{ivrs}_bill_insights.json"
-        )
+    @field_validator("ivrs")
+    @classmethod
+    def clean_ivrs(cls, v: str) -> str:
+        v = v.strip().upper()
+        if not re.fullmatch(r"[A-Z0-9]{8,15}", v):
+            raise ValueError("IVRS must be 8-15 letters/digits")
+        return v
 
-        with open(bill_path, "w", encoding="utf-8") as f:
-            json.dump(data["bill_data"], f, indent=4)
-
-        print("Bill JSON saved")
-
-
-        # ====================================
-        # RUN final_pipeline.py
-        # ====================================
-
-        subprocess.run(
-            ["python", "final_pipeline.py", ivrs],
-            cwd=BASE_DIR,
-            check=True
-        )
-
-
-        # ====================================
-        # RUN mini_report.py
-        # ====================================
-
-        subprocess.run(
-            ["python", "mini_report/mini_report.py", ivrs],
-            cwd=BASE_DIR,
-            check=True
-        )
-
-        print("Mini Report Completed")
+    @field_validator("name", "address")
+    @classmethod
+    def strip_text(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("required")
+        return v
 
 
-        # ====================================
-        # PDF PATH
-        # ====================================
+def require_login(request: Request):
+    if not is_logged_in(request):
+        raise HTTPException(status_code=401, detail="Please log in again.")
 
-        pdf_path = os.path.join(
-            REPORT_DIR,
-            f"{ivrs}_mini_report.pdf"
-        )
 
-        # PDF generate hone ka wait
-        timeout = 40        # maximum 40 sec wait
-        elapsed = 0
+@app.post("/api/generate", dependencies=[Depends(require_login)])
+def generate(body: ReportRequest):
+    if sum(m.kwh for m in body.months) <= 0 or sum(m.bill for m in body.months) <= 0:
+        raise HTTPException(status_code=422, detail="Units and bill amounts cannot all be zero.")
 
-        while elapsed < timeout:
-
-            if os.path.exists(pdf_path):
-
-                # file size >0 bhi check kar lo
-                if os.path.getsize(pdf_path) > 0:
-                    break
-
-            time.sleep(1)
-            elapsed += 1
-
-        # agar fir bhi file nahi mili
-        if not os.path.exists(pdf_path):
-
-            return JSONResponse(
-                status_code=404,
-                content={
-                    "message": "PDF not found"
-                }
+    with _pdf_lock:
+        try:
+            pdf = generate_mini_report_pdf(
+                ivrs=body.ivrs,
+                name=body.name,
+                address=body.address,
+                meter_type=body.meter_type,
+                roof_sqft=body.roof_area_sqft,
+                monthly=[m.model_dump() for m in body.months],
             )
+        except Exception as e:
+            print("Report generation failed:", repr(e))
+            raise HTTPException(status_code=500, detail="Could not generate the report. Please try again.")
 
-        print("PDF Found :", pdf_path)
-
-        return {
-            "status": "success",
-            "ivrs": ivrs
-        }
-
-    except subprocess.CalledProcessError as e:
-
-        return JSONResponse(
-            status_code=500,
-            content={
-                "error": f"Pipeline Error : {str(e)}"
-            }
-        )
-
-    except Exception as e:
-
-        return JSONResponse(
-            status_code=500,
-            content={
-                "error": str(e)
-            }
-        )
-@app.get("/download-report/{ivrs}")
-def download_report(ivrs: str):
-
-    pdf_path = os.path.join(
-        REPORT_DIR,
-        f"{ivrs}_mini_report.pdf"
-    )
-
-    if not os.path.exists(pdf_path):
-
-        return JSONResponse(
-            status_code=404,
-            content={
-                "status": "waiting"
-            }
-        )
-
-    return FileResponse(
-        pdf_path,
+    return Response(
+        content=pdf,
         media_type="application/pdf",
-        filename=f"{ivrs}_mini_report.pdf"
+        headers={"Content-Disposition": f'attachment; filename="{body.ivrs}_mini_report.pdf"'},
     )

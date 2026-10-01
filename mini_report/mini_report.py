@@ -1,39 +1,23 @@
-import json
 import base64
-import asyncio
-from pathlib import Path
+import io
 from datetime import datetime
-from jinja2 import Environment, FileSystemLoader
-from playwright.async_api import async_playwright
+from pathlib import Path
+
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from jinja2 import Environment, FileSystemLoader
+from playwright.sync_api import sync_playwright
 
-# ==============================
-# Path Setup
-# ==============================
+from solar_calc import compute_solar_insights
+
 CURRENT_DIR = Path(__file__).parent
-PROJECT_ROOT = CURRENT_DIR.parent
-FINAL_INSIGHTS_DIR = PROJECT_ROOT / "result" / "final_insights"
-FINAL_REPORTS_DIR = PROJECT_ROOT / "reports"
-FINAL_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+LOGO_PATH = CURRENT_DIR / "energinai_logo.png"
 
-# ==============================
-# CONFIGURATION
-# ==============================
-import sys
-FORM_ID = sys.argv[1]# change form ID here27338211
 CURRENT_SCORE = 3
 PROJECTED_SCORE = 7
 SYSTEM_LIFETIME_YEARS = 25
-
-FINAL_INSIGHTS = FINAL_INSIGHTS_DIR / f"{FORM_ID}_final_insights.json"
-if not FINAL_INSIGHTS.exists():
-    raise FileNotFoundError(f"Final insights not found: {FINAL_INSIGHTS}")
-
-LOGO_PATH = CURRENT_DIR / "energinai_logo.png"
-if not FINAL_INSIGHTS.exists():
-    raise FileNotFoundError(f"Final insights not found: {FINAL_INSIGHTS}")
-if not LOGO_PATH.exists():
-    raise FileNotFoundError(f"Logo file not found at: {LOGO_PATH}")
+SQFT_TO_M2 = 0.092903
 
 # ==============================
 # Helper Functions
@@ -59,6 +43,9 @@ def indian_number(n):
         s = s[:-2]
     return out
 
+def png_to_base64(png_bytes: bytes) -> str:
+    return "data:image/png;base64," + base64.b64encode(png_bytes).decode("utf-8")
+
 def score_to_pos(score: float) -> float:
     return (score - 1) / 8 * 100
 
@@ -72,10 +59,8 @@ def get_score_remark(score: float) -> str:
     else:
         return "Highly Efficient - Advanced energy management"
 
-def create_solar_bill_comparison_chart(without_solar, with_solar_cost, form_id, Solar_System=None):
-    """Generate a before/after solar bill chart (auto-includes system size from insights)."""
-    import matplotlib.pyplot as plt
-    from pathlib import Path
+def create_solar_bill_comparison_chart(without_solar, with_solar_cost, Solar_System=None):
+    """Return a before/after solar bill chart as PNG bytes."""
 
     min_display_value = 100
     system_kw = None
@@ -126,171 +111,112 @@ def create_solar_bill_comparison_chart(without_solar, with_solar_cost, form_id, 
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
 
-    charts_dir = CURRENT_DIR / "charts"
-    charts_dir.mkdir(parents=True, exist_ok=True)
-    chart_path = charts_dir / f"solar_bill_comparison_{form_id}.png"
-
     plt.tight_layout()
-    plt.savefig(chart_path, dpi=200)
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png", dpi=200)
     plt.close(fig)
-    return chart_path
+    return buf.getvalue()
 
 
-# ==============================
-# Load Data
-# ==============================
-with open(FINAL_INSIGHTS, "r", encoding="utf-8") as f:
-    data = json.load(f)
+def build_context(ivrs, name, address, meter_type, roof_sqft, monthly):
+    """monthly: list of {"month", "kwh", "bill"}. Returns the Jinja context."""
+    roof_m2 = round(float(roof_sqft) * SQFT_TO_M2, 2)
+    final_data = {
+        "Energy Consumption": {
+            "Meter Type": meter_type,
+            "Monthly Consumption & Bill": monthly,
+        },
+        "Solar Feasibility": {"Calculated Installation Area (m²)": str(roof_m2)},
+    }
+    solar_insights = compute_solar_insights(final_data)["solar_insights"]
+    solar_data = next((v for k, v in solar_insights.items() if "kW" in k), {})
 
-print(f"Generating Mini Report for IVRS: {FORM_ID}")
+    billing_data = monthly
+    avg_monthly_kwh = sum(float(b["kwh"]) for b in billing_data) / len(billing_data)
+    avg_monthly_bill = sum(float(b["bill"]) for b in billing_data) / len(billing_data)
 
-# ==============================
-# Extract Metrics
-# ==============================
-basic_info = data.get("Basic Information", {})
-energy_data = data.get("Energy Consumption", {})
+    daily_consumption = round(avg_monthly_kwh / 30, 1)
+    projected_year_kwh = avg_monthly_kwh * 12
+    projected_yearly_cost = round(avg_monthly_bill * 12, 2)
+    yearly_co2_tons = round(projected_year_kwh * 0.82 / 1000, 2)
+    average_monthly_bill = round(avg_monthly_bill, 2)
 
-# 🔍 Auto-detect solar data key dynamically (e.g. "3.0kW", "5kW", etc.)
-solar_insights = data.get("Solar Insights", {})
-solar_data = next((v for k, v in solar_insights.items() if "kW" in k), {})
+    annual_savings = int(solar_data.get("annual_saving_inr", 0) or 0)
+    without_solar_cost = float(solar_data.get("without_solar_cost_inr", 0) or 0)
+    with_solar_cost = float(solar_data.get("with_solar_cost_inr", 0) or 0)
+    offset_kwh = float(solar_data.get("offset_kwh", 0) or 0)
 
-homeowner_name = basic_info.get("Owner Name", "N/A")
-homeowner_address = basic_info.get("Owner Address", "N/A")
+    # Transformation & environmental metrics
+    efficiency_saving = projected_year_kwh * 0.07
+    avoided_kwh = offset_kwh + efficiency_saving
+    co2_prevented_tons = round(avoided_kwh * 0.82 / 1000, 1)
 
-billing_data = energy_data.get("Monthly Consumption & Bill", [])
-if not billing_data:
-    raise ValueError("No billing history found in final insights JSON")
+    lifetime_cost_saving = annual_savings * SYSTEM_LIFETIME_YEARS
+    lifetime_co2_saved = co2_prevented_tons * SYSTEM_LIFETIME_YEARS
 
-avg_monthly_kwh = sum(float(b["kwh"]) for b in billing_data) / len(billing_data)
-avg_monthly_bill = sum(float(b["bill"]) for b in billing_data) / len(billing_data)
+    trees = int(co2_prevented_tons * 45)
+    garden_area = int(trees * 400)
+    km_driving = int(co2_prevented_tons * 2400)
+    rural_homes = projected_year_kwh / 1200
 
-daily_consumption = round(avg_monthly_kwh / 30, 1)
-projected_year_kwh = avg_monthly_kwh * 12
-projected_yearly_cost = round(avg_monthly_bill * 12, 2)
-yearly_co2_tons = round(projected_year_kwh * 0.82 / 1000, 2)
-average_monthly_bill = round(avg_monthly_bill, 2)
+    environmental_impacts = {
+        "trees": trees if trees >= 5 else None,
+        "garden_area": indian_number(garden_area) if garden_area >= 2000 else None,
+        "km_driving": indian_number(km_driving) if km_driving >= 100 else None,
+        "rural_homes": round(rural_homes, 1) if rural_homes >= 2 else None,
+    }
 
-annual_savings = int(solar_data.get("annual_saving_inr", 0) or 0)
-without_solar_cost = float(solar_data.get("without_solar_cost_inr", 0) or 0)
-with_solar_cost = float(solar_data.get("with_solar_cost_inr", 0) or 0)
-offset_kwh = float(solar_data.get("offset_kwh", 0) or 0)
+    chart_png = create_solar_bill_comparison_chart(without_solar_cost, with_solar_cost, Solar_System=solar_data)
 
-# ==============================
-# Transformation & Environmental Metrics
-# ==============================
-baseline_kwh = projected_year_kwh
-efficiency_saving = baseline_kwh * 0.07
-avoided_kwh = offset_kwh + efficiency_saving
-co2_prevented_tons = round(avoided_kwh * 0.82 / 1000, 1)
-
-lifetime_cost_saving = annual_savings * SYSTEM_LIFETIME_YEARS
-lifetime_co2_saved = co2_prevented_tons * SYSTEM_LIFETIME_YEARS
-
-trees = int(co2_prevented_tons * 45)
-garden_area = int(trees * 400)
-km_driving = int(co2_prevented_tons * 2400)
-rural_homes = projected_year_kwh / 1200
-
-environmental_impacts = {
-    "trees": trees if trees >= 5 else None,
-    "garden_area": indian_number(garden_area) if garden_area >= 2000 else None,
-    "km_driving": indian_number(km_driving) if km_driving >= 100 else None,
-    "rural_homes": round(rural_homes, 1) if rural_homes >= 2 else None,
-}
-
-# ==============================
-# Chart Generation
-# ==============================
-solar_insights = data.get("Solar Insights", {})
-solar_data = next((v for k, v in solar_insights.items() if "kW" in k), {})
-size = basic_info.get("Owner Name", "N/A")
-chart_path = create_solar_bill_comparison_chart(without_solar_cost, with_solar_cost, FORM_ID, Solar_System=solar_data)
-
-# ==============================
-# Scoring & Context
-# ==============================
-current_remark = get_score_remark(CURRENT_SCORE)
-projected_remark = get_score_remark(PROJECTED_SCORE)
-score_improvement = round(((PROJECTED_SCORE - CURRENT_SCORE) / CURRENT_SCORE) * 100, 1)
-
-context = {
-    "form_id": FORM_ID,
-    "datetime_generated": datetime.now().strftime("%B %d, %Y"),
-    "homeowner_name": homeowner_name,
-    "homeowner_address": homeowner_address,
-    "logo_base64": image_to_base64(LOGO_PATH),
-    "chart_base64": image_to_base64(chart_path),
-    "current_score": CURRENT_SCORE,
-    "projected_score": PROJECTED_SCORE,
-    "current_remark": current_remark,
-    "projected_remark": projected_remark,
-    "current_pos": score_to_pos(CURRENT_SCORE),
-    "projected_pos": score_to_pos(PROJECTED_SCORE),
-    "average_monthly_bill": average_monthly_bill,
-    "projected_yearly_cost": projected_yearly_cost,
-    "daily_consumption": daily_consumption,
-    "yearly_co2_tons": yearly_co2_tons,
-    "annual_savings": annual_savings,
-    "co2_prevented_tons": co2_prevented_tons,
-    "score_improvement": score_improvement,
-    "lifetime_cost_saving": lifetime_cost_saving,
-    "lifetime_co2_saved": lifetime_co2_saved,
-    "system_lifetime_years": SYSTEM_LIFETIME_YEARS,
-    
-}
-context.update({k: v for k, v in environmental_impacts.items() if v})
-
-# ==============================
-# Add Solar Feasibility & Solar Insights to Context
-# ==============================
-
-solar_insights = data.get("Solar Insights", {})
-
-# Find the first valid solar system entry (e.g. "3.2kW")
-solar_system_data = None
-for key, val in solar_insights.items():
-    if isinstance(val, dict) and "system_size_kw" in val:
-        solar_system_data = val
-        break
-
-# Add them to context for Jinja template access
-context["Solar_Insights"] = solar_insights
-context["Solar_System"] = solar_system_data
+    context = {
+        "form_id": ivrs,
+        "datetime_generated": datetime.now().strftime("%B %d, %Y"),
+        "homeowner_name": name,
+        "homeowner_address": address,
+        "logo_base64": image_to_base64(LOGO_PATH),
+        "chart_base64": png_to_base64(chart_png),
+        "current_score": CURRENT_SCORE,
+        "projected_score": PROJECTED_SCORE,
+        "current_remark": get_score_remark(CURRENT_SCORE),
+        "projected_remark": get_score_remark(PROJECTED_SCORE),
+        "current_pos": score_to_pos(CURRENT_SCORE),
+        "projected_pos": score_to_pos(PROJECTED_SCORE),
+        "average_monthly_bill": average_monthly_bill,
+        "projected_yearly_cost": projected_yearly_cost,
+        "daily_consumption": daily_consumption,
+        "yearly_co2_tons": yearly_co2_tons,
+        "annual_savings": annual_savings,
+        "co2_prevented_tons": co2_prevented_tons,
+        "score_improvement": round(((PROJECTED_SCORE - CURRENT_SCORE) / CURRENT_SCORE) * 100, 1),
+        "lifetime_cost_saving": lifetime_cost_saving,
+        "lifetime_co2_saved": lifetime_co2_saved,
+        "system_lifetime_years": SYSTEM_LIFETIME_YEARS,
+        "Solar_Insights": solar_insights,
+        "Solar_System": solar_data if "system_size_kw" in solar_data else None,
+    }
+    context.update({k: v for k, v in environmental_impacts.items() if v})
+    return context
 
 
-# ==============================
-# Render HTML
-# ==============================
-env = Environment(loader=FileSystemLoader(str(CURRENT_DIR / "templates")))
-env.filters["indian_number"] = indian_number
-template = env.get_template("mini_report.html")
-output_html = template.render(**context)
+def generate_mini_report_pdf(ivrs, name, address, meter_type, roof_sqft, monthly) -> bytes:
+    """Build the mini report for one customer and return it as PDF bytes."""
+    context = build_context(ivrs, name, address, meter_type, roof_sqft, monthly)
 
-html_path = FINAL_REPORTS_DIR / f"{FORM_ID}_mini_report.html"
-html_path.write_text(output_html, encoding="utf-8")
+    env = Environment(loader=FileSystemLoader(str(CURRENT_DIR / "templates")))
+    env.filters["indian_number"] = indian_number
+    html = env.get_template("mini_report.html").render(**context)
 
-print(f"HTML ready: {html_path.name}")
-
-# ==============================
-# Generate PDF
-# ==============================
-async def generate_pdf_playwright(html_content, pdf_path):
-    async with async_playwright() as p:
-        browser = await p.chromium.launch()
-        page = await browser.new_page()
-        await page.set_viewport_size({'width': 1200, 'height': 1600})
-        await page.set_content(html_content, wait_until='networkidle')
-        await page.emulate_media(media='print')
-        await page.pdf(
-            path=pdf_path,
-            format='A4',
-            margin={'top': '15mm', 'bottom': '15mm', 'left': '10mm', 'right': '10mm'},
-            print_background=True,
-            scale=0.75,
-        )
-        await browser.close()
-
-pdf_path = FINAL_REPORTS_DIR / f"{FORM_ID}_mini_report.pdf"
-asyncio.run(generate_pdf_playwright(output_html, str(pdf_path)))
-
-print(f"PDF generated: {pdf_path.name}")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(args=["--no-sandbox"])
+        try:
+            page = browser.new_page(viewport={"width": 1200, "height": 1600})
+            page.set_content(html, wait_until="networkidle")
+            page.emulate_media(media="print")
+            return page.pdf(
+                format="A4",
+                margin={"top": "15mm", "bottom": "15mm", "left": "10mm", "right": "10mm"},
+                print_background=True,
+                scale=0.75,
+            )
+        finally:
+            browser.close()

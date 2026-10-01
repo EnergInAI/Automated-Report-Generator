@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Audit Form</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Report - EnergInAI</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<div class="wrap">
+  <div class="top"><a href="/logout">Log out</a></div>
+  <div class="brand">
+    <h1>Energy Report Generator</h1>
+    <p>Fill in the details from the customer's electricity bill, then download the PDF report.</p>
+  </div>
 
-<div class="container">
-
-    <h1>EnerginAI Solar Audit</h1>
-
+  <form id="form" novalidate>
     <div class="card">
+      <h2>1. Customer details</h2>
+      <p class="sub">Found at the top of the electricity bill.</p>
 
-        <h2>Owner Details</h2>
-
-        <div class="input-group">
-            <label>Name of House Owner</label>
-            <input type="text" id="name" required>
-        </div>
-
-        <div class="input-group">
-            <label>Phone Number</label>
-            <input type="number" id="phone" required>
-        </div>
-
-        <div class="input-group">
-            <label>Full Address (including PIN Code)</label>
-            <textarea id="address"></textarea>
-        </div>
-
-        <div class="input-group">
-            <label>Meter Type</label>
-            <select id="meter">
-                <option value="Single-phase">Single-phase</option>
-                <option value="Three-phase">Three-phase</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label>IVRS Number</label>
-            <input type="text" id="ivrs" required>
-        </div>
-
-        <div class="input-group">
-            <label>Shadow Free Roof Area (sq. ft.)</label>
-            <input type="number" id="roof" required>
-        </div>
-
-        <button onclick="saveForm()">
-            Next →
-        </button>
-
+      <div class="field">
+        <label for="name">Customer name</label>
+        <input id="name" placeholder="e.g. Anil Agrawal" required>
+        <div class="hint">Name of the consumer as printed on the bill.</div>
+      </div>
+      <div class="field">
+        <label for="address">Address</label>
+        <textarea id="address" placeholder="House no., area, city, PIN code" required></textarea>
+        <div class="hint">Full address including PIN code.</div>
+      </div>
+      <div class="field">
+        <label for="ivrs">IVRS number</label>
+        <input id="ivrs" placeholder="e.g. N2253012669" autocapitalize="characters" required>
+        <div class="hint">Unique ID of the connection, printed near the top of the bill. 8-15 letters/digits. It is also used as the Report ID.</div>
+      </div>
     </div>
 
+    <div class="card">
+      <h2>2. Meter and roof</h2>
+      <div class="field">
+        <label for="meter">Meter type</label>
+        <select id="meter">
+          <option value="Single-phase">Single-phase (normal home connection)</option>
+          <option value="Three-phase">Three-phase</option>
+        </select>
+        <div class="hint">Check "Phase" / connection type on the bill. Most homes are single-phase.</div>
+      </div>
+      <div class="field">
+        <label for="roof">Shadow-free roof area (sq. ft.)</label>
+        <input id="roof" type="number" min="1" step="any" inputmode="decimal" placeholder="e.g. 500" required>
+        <div class="hint">Open roof area where solar panels can be placed, without shade from buildings or trees.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. Last 6 months consumption</h2>
+      <p class="sub">Copy from the "consumption history" table on the bill, latest month first. Fill at least 3 months.</p>
+      <div id="rows"></div>
+      <div class="hint">Units = electricity used in that month. Bill amount = total amount billed for that month. If the bill history does not show amounts, use each month's "Net payable" amount.</div>
+    </div>
+
+    <button type="submit" id="btn">Generate PDF report</button>
+    <div class="msg" id="msg"></div>
+  </form>
 </div>
 
-<script src="script.js"></script>
-
+<script src="/static/app.js"></script>
 </body>
 </html>

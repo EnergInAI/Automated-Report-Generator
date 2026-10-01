@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - EnergInAI Report</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="wrap login">
+    <div class="brand">
+      <h1>EnergInAI</h1>
+      <p>Energy Report Generator</p>
+    </div>
+    <form class="card" method="post" action="/login">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required autofocus>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit">Log in</button>
+      <div class="msg err" id="err" style="display:none">Incorrect username or password.</div>
+    </form>
+  </div>
+  <script>
+    if (location.search.includes("error=1")) document.getElementById("err").style.display = "block";
+  </script>
+</body>
+</html>

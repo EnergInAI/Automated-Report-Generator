@@ -178,7 +178,7 @@
 
   .chart {
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
@@ -186,14 +186,14 @@
   .cmp {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 14px;
+    gap: 12px;
+    margin-top: 16px;
   }
   .cmp-head {
     border-radius: 8px;
-    padding: 12px 10px;
+    padding: 16px 10px;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.2;
   }
@@ -210,9 +210,9 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 18px 12px;
+    padding: 26px 14px;
     border-radius: 8px;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     box-shadow: 0 1px 3px rgba(13, 39, 77, 0.06);
   }
   .cmp-us-cell { white-space: nowrap; background: #fff; border-left: 4px solid #228b22; color: #0d274d; font-weight: 700; }
@@ -221,19 +221,20 @@
   .cmp-text { flex: 1; }
   .cmp-mark {
     flex: none;
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     color: #fff;
     font-size: 0.8rem;
     font-weight: 700;
-    line-height: 22px;
+    line-height: 26px;
     text-align: center;
   }
   .cmp-yes { background: #228b22; }
   .cmp-no { background: #c0392b; opacity: 0.75; }
   .cmp-tag {
-    margin: 14px 0 0 0;
+    font-size: 1.1rem;
+    margin: 18px 0 0 0;
     padding-top: 10px;
     border-top: 1px solid #f28c28;
     text-align: center;
@@ -446,7 +447,7 @@
 
 
   <!-- Solar Feasibility & Insights Section -->
-  <div class="section-block" style="background:#f8f9fa;border-radius:10px;padding:14px 16px 12px 16px;box-shadow:0 2px 6px rgba(13,39,77,0.08);margin-top:26px;margin-bottom:12px;">
+  <div class="section-block" style="background:#f8f9fa;border-radius:10px;padding:14px 16px 12px 16px;box-shadow:0 2px 6px rgba(13,39,77,0.08);margin-top:16px;margin-bottom:12px;">
     <h2>
       🔆 Solar Feasibility & Insights
     </h2>
@@ -455,33 +456,33 @@
     <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       
       <!-- System Size -->
-      <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
-        <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">⚡</div>
-        <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">RECOMMENDED SIZE</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
+        <div style="font-size:1.4rem;margin-bottom:4px;opacity:0.88;">⚡</div>
+        <h3 style="margin:0 0 5px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">RECOMMENDED SIZE</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ Solar_System['system_size_kw'] }} kW</div>
         
       </div>
 
       <!-- Annual Generation -->
-      <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
-        <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">🔋</div>
-        <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">ANNUAL GENERATION</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
+        <div style="font-size:1.4rem;margin-bottom:4px;opacity:0.88;">🔋</div>
+        <h3 style="margin:0 0 5px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">ANNUAL GENERATION</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ Solar_System['annual_generation_kwh']|indian_number }} kWh</div>
         
       </div>
 
       <!-- Offset -->
-      <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
-        <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">☀️</div>
-        <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">LOAD OFFSET</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
+        <div style="font-size:1.4rem;margin-bottom:4px;opacity:0.88;">☀️</div>
+        <h3 style="margin:0 0 5px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">LOAD OFFSET</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ Solar_System['offset_percent'] }}%</div>
         
       </div>
 
       <!-- Annual Saving -->
-      <div class="card" style="background:#fff;border-radius:8px;padding:11px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
-        <div style="font-size:1.55rem;margin-bottom:6px;opacity:0.88;">💰</div>
-        <h3 style="margin:0 0 5px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">ANNUAL SAVING </h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
+        <div style="font-size:1.4rem;margin-bottom:4px;opacity:0.88;">💰</div>
+        <h3 style="margin:0 0 5px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">ANNUAL SAVING </h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">₹{{ Solar_System['annual_saving_inr']|indian_number }}</div>
         <div style="font-size:0.78rem;color:#666;font-style:italic;margin-top:4px;">After loan payment</div>
         
@@ -490,30 +491,30 @@
     {% endif %}
 
     {% if Solar_System.finance %}
-    <h3 style="margin:18px 0 8px 0;font-size:1rem;color:#0d274d;text-align:left;border-bottom:1px solid #f28c28;padding-bottom:4px;">💸 Financial Overview</h3>
+    <h3 style="margin:12px 0 6px 0;font-size:1rem;color:#0d274d;text-align:left;border-bottom:1px solid #f28c28;padding-bottom:4px;">💸 Financial Overview</h3>
 
     <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
-        <div style="font-size:1.55rem;margin-bottom:6px;">🏦</div>
-        <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">TOTAL INVESTMENT</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">🏦</div>
+        <h3 style="margin:0 0 4px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">TOTAL INVESTMENT</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">₹{{ Solar_System.finance.gross_capex_inr|indian_number }}</div>
       </div>
 
-      <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
-        <div style="font-size:1.55rem;margin-bottom:6px;">📅</div>
-        <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">SUBSIDY</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #f28c28;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">📅</div>
+        <h3 style="margin:0 0 4px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">SUBSIDY</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">₹{{ Solar_System.finance.subsidy_inr|indian_number }} </div>
       </div>
 
-      <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
-        <div style="font-size:1.55rem;margin-bottom:6px;">💳</div>
-        <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">MONTHLY EMI</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">💳</div>
+        <h3 style="margin:0 0 4px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">MONTHLY EMI</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">₹{{ Solar_System.finance.monthly_payment_inr|indian_number }}</div>
       </div>
 
-      <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
-        <div style="font-size:1.55rem;margin-bottom:6px;">📅</div>
-        <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">PAYBACK TIME</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">📅</div>
+        <h3 style="margin:0 0 4px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">PAYBACK TIME</h3>
         {% if Solar_System.finance.estimated_loan_duration_years %}
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">{{ Solar_System.finance.estimated_loan_duration_years }} years</div>
         {% else %}
@@ -525,19 +526,19 @@
     {% endif %}
 
     {% if Solar_System.finance %}
-    <h3 style="margin:18px 0 8px 0;font-size:1rem;color:#0d274d;text-align:left;border-bottom:1px solid #f28c28;padding-bottom:4px;">💸 10 Year EMI</h3>
+    <h3 style="margin:12px 0 6px 0;font-size:1rem;color:#0d274d;text-align:left;border-bottom:1px solid #f28c28;padding-bottom:4px;">💸 10 Year EMI</h3>
 
     <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       
-      <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
-        <div style="font-size:1.55rem;margin-bottom:6px;">💳</div>
-        <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">MONTHLY EMI</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">💳</div>
+        <h3 style="margin:0 0 4px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">MONTHLY EMI</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;">₹{{ Solar_System.finance.ten_year_emi_inr|indian_number }}</div>
       </div>
 
-      <div class="card" style="background:#fff;border-radius:8px;padding:10px 9px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
-        <div style="font-size:1.55rem;margin-bottom:6px;">📅</div>
-        <h3 style="margin:0 0 4px 0;font-size:0.93rem;color:#666;font-weight:600;text-transform:uppercase;">PAYBACK TIME</h3>
+      <div class="card" style="background:#fff;border-radius:8px;padding:10px 8px;box-shadow:0 1px 3px rgba(13,39,77,0.06);text-align:center;border-left:4px solid #228b22;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">📅</div>
+        <h3 style="margin:0 0 4px 0;font-size:0.9rem;color:#666;font-weight:600;text-transform:uppercase;">PAYBACK TIME</h3>
         <div style="font-size:1.05rem;font-weight:bold;color:#0d274d;"> 10 years</div>
       </div>
     </div>
@@ -550,7 +551,7 @@
   </div>
   <!-- Why Choose Us (last section before footer) -->
   {% macro icon(name) -%}
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     {%- if name == "monitor" -%}<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 12l3-3 3 2 4-4"/>
     {%- elif name == "award" -%}<circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/>
     {%- elif name == "team" -%}<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5a3 3 0 010 6M18 14c2 .8 3 2.8 3 6"/>

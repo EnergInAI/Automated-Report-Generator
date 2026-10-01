@@ -73,7 +73,6 @@ def get_score_remark(score: float) -> str:
 def create_solar_bill_comparison_chart(without_solar, with_solar_cost, Solar_System=None):
     """Return a before/after solar bill chart as PNG bytes."""
 
-    min_display_value = 100
     system_kw = None
 
     # ✅ Safely extract system size even if nested
@@ -100,24 +99,19 @@ def create_solar_bill_comparison_chart(without_solar, with_solar_cost, Solar_Sys
         labels = ["Without Solar", "With Solar"]
 
     # ✅ Handle zero or missing values
-    without_val = without_solar if without_solar > 0 else min_display_value
-    with_val = with_solar_cost if with_solar_cost > 0 else min_display_value
-    values = [without_val, with_val]
+    # True-to-scale bars: a zero bill is drawn as zero height, never padded up
+    values = [max(without_solar, 0), max(with_solar_cost, 0)]
     colors = ["#f28c28", "#228b22"]
 
-    fig, ax = plt.subplots(figsize=(8, 3.6))
+    fig, ax = plt.subplots(figsize=(8, 4.3))
     bars = ax.bar(labels, values, color=colors)
     ax.set_ylabel("Annual Electricity Cost (INR)")
     ax.set_title("Annual Bill Comparison")
 
     # ✅ Bar labels
-    bar_labels = []
-    for original_val, display_val in zip([without_solar, with_solar_cost], values):
-        if display_val == min_display_value:
-            bar_labels.append("₹0 (est.)")
-        else:
-            bar_labels.append("₹" + indian_number(original_val))
+    bar_labels = ["₹" + indian_number(v) if v > 0 else "₹0" for v in values]
     ax.bar_label(bars, labels=bar_labels, padding=3)
+    ax.set_ylim(0, max(values) * 1.15 if max(values) > 0 else 1)
 
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)

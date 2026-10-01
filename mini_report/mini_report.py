@@ -13,7 +13,7 @@ from solar_calc import compute_solar_insights
 
 CURRENT_DIR = Path(__file__).parent
 LOGO_PATH = CURRENT_DIR / "energinai_logo.png"
-WHY_CHOOSE_PATH = CURRENT_DIR / "why_choose_us.jpg"
+WHY_CHOOSE_PATH = CURRENT_DIR / "why_choose_us.png"
 
 CURRENT_SCORE = 3
 PROJECTED_SCORE = 7

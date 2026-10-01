@@ -183,14 +183,16 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 
+  .why-block {
+    margin-top: 6px;
+  }
+
   .why-img {
     display: block;
-    margin: 1rem auto 0 auto;
-    width: auto;
-    max-width: 100%;
-    max-height: 780px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(13, 39, 77, 0.18);
   }
 
   footer {
@@ -396,12 +398,6 @@
     {% endif %}
 
 
-<!-- Why Choose Us -->
-    {% if why_choose_base64 %}
-    <h2>⭐ Why Choose EnergInAI?</h2>
-    <img src="{{ why_choose_base64 }}" alt="EnergInAI vs Typical Solar Company" class="why-img" />
-    {% endif %}
-<div class="page-break"></div>
   <!-- Solar Feasibility & Insights Section -->
   <div class="section-block" style="background:#f8f9fa;border-radius:10px;padding:14px 16px 12px 16px;box-shadow:0 2px 6px rgba(13,39,77,0.08);margin-top:26px;margin-bottom:12px;">
     <h2>
@@ -505,6 +501,14 @@
       These values are indicative and based on current tariff & solar yield estimates.
     </p>
   </div>
+  <!-- Why Choose Us (last section before footer) -->
+  {% if why_choose_base64 %}
+  <div class="page-break"></div>
+  <div class="why-block">
+    <img src="{{ why_choose_base64 }}" alt="Why Choose EnergInAI" class="why-img" />
+  </div>
+  {% endif %}
+
 <footer style="margin-top: 3rem; font-size: 1rem; color: #0d274d; border-top: 1px solid #f28c28; padding-top: 1.2rem; text-align: center; background: #f8f9fa;">
   <div style="margin-bottom: 0.2rem;">
     <b style="color: #0d274d; font-size: 1.08em;">📞 Ready to Begin Your Energy Transformation?</b><br/>

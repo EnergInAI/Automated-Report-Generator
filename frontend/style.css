@@ -27,3 +27,7 @@ button:disabled { background: #94a3b8; cursor: wait; }
 .top a { color: #64748b; }
 .login { max-width: 380px; margin: 12vh auto 0; }
 @media (max-width: 480px) { .card { padding: 18px; } }
+.pw { position: relative; }
+.pw input { padding-right: 46px; }
+.eye { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0; background: transparent; color: #64748b; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.eye:hover { background: #f1f5f9; color: #0d274d; }

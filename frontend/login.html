@@ -26,7 +26,12 @@
     </form>
   </div>
   <script>
-    if (location.search.includes("error=1")) document.getElementById("err").style.display = "block";
+    const err = document.getElementById("err");
+    if (location.search.includes("error=1")) err.style.display = "block";
+    if (location.search.includes("error=2")) {
+      err.textContent = "Too many failed attempts. Please try again in 15 minutes.";
+      err.style.display = "block";
+    }
   </script>
 </body>
 </html>

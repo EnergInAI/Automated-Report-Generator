@@ -46,8 +46,51 @@ _pdf_lock = threading.Semaphore(1)
 
 
 # ------------------------------
-# Login
+# Login (with simple brute-force lockout, kept in memory)
 # ------------------------------
+LOCK_WINDOW_SECONDS = 15 * 60
+MAX_FAILS_PER_IP = 5
+MAX_FAILS_PER_USER = 20  # backstop in case the client IP can be spoofed
+_failures: dict = {}
+_failures_lock = threading.Lock()
+
+
+def client_ip(request: Request) -> str:
+    # Behind Render's proxy the real client is the last X-Forwarded-For entry.
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[-1].strip()
+    return request.client.host if request.client else "unknown"
+
+
+def _recent_failures(key: str) -> int:
+    cutoff = time.time() - LOCK_WINDOW_SECONDS
+    times = [t for t in _failures.get(key, []) if t > cutoff]
+    if times:
+        _failures[key] = times
+    else:
+        _failures.pop(key, None)
+    return len(times)
+
+
+def is_locked(ip: str, username: str) -> bool:
+    with _failures_lock:
+        return (
+            _recent_failures(f"ip:{ip}") >= MAX_FAILS_PER_IP
+            or _recent_failures(f"user:{username}") >= MAX_FAILS_PER_USER
+        )
+
+
+def record_failure(ip: str, username: str) -> None:
+    with _failures_lock:
+        for key in (f"ip:{ip}", f"user:{username}"):
+            _failures.setdefault(key, []).append(time.time())
+
+
+def clear_failures(ip: str) -> None:
+    with _failures_lock:
+        _failures.pop(f"ip:{ip}", None)
+
 def is_logged_in(request: Request) -> bool:
     return bool(request.session.get("user"))
 
@@ -61,12 +104,21 @@ def login_page(request: Request):
 
 @app.post("/login")
 def login(request: Request, username: str = Form(...), password: str = Form(...)):
-    expected = USERS.get(username.strip())
+    username = username.strip()
+    ip = client_ip(request)
+    # Unknown usernames share one bucket so attackers can't fill memory with new keys.
+    bucket = username if username in USERS else "(unknown)"
+    if is_locked(ip, bucket):
+        return RedirectResponse("/login?error=2", status_code=303)
+
+    expected = USERS.get(username)
     ok = expected is not None and hmac.compare_digest(expected.encode(), password.encode())
     if not ok:
+        record_failure(ip, bucket)
         time.sleep(1)  # slow down password guessing
         return RedirectResponse("/login?error=1", status_code=303)
-    request.session["user"] = username.strip()
+    clear_failures(ip)
+    request.session["user"] = username
     return RedirectResponse("/", status_code=303)
 
 

@@ -32,7 +32,7 @@
       <div class="field">
         <label for="ivrs">IVRS number</label>
         <input id="ivrs" placeholder="e.g. N2253012669" autocapitalize="characters" required>
-        <div class="hint">Unique ID of the connection, printed near the top of the bill. 8-15 letters/digits. It is also used as the Report ID.</div>
+        <div class="hint">Or Consumer Number. Unique ID of the connection, printed near the top of the bill. Starts with N.</div>
       </div>
     </div>
 
@@ -41,15 +41,16 @@
       <div class="field">
         <label for="meter">Meter type</label>
         <select id="meter">
-          <option value="Single-phase">Single-phase (normal home connection)</option>
+          <option value="Single-phase">Single-phase</option>
           <option value="Three-phase">Three-phase</option>
         </select>
-        <div class="hint">Check "Phase" / connection type on the bill. Most homes are single-phase.</div>
+        <div class="hint">Check "Phase" / connection type on the bill.</div>
       </div>
       <div class="field">
         <label for="roof">Shadow-free roof area (sq. ft.)</label>
         <input id="roof" type="number" min="1" step="any" inputmode="decimal" placeholder="e.g. 500" required>
         <div class="hint">Open roof area where solar panels can be placed, without shade from buildings or trees.</div>
+        <div class="hint">Ask the customer for an estimate or use google maps to estimate. Estimate value is fine no need for exact value.</div>
       </div>
     </div>
 
